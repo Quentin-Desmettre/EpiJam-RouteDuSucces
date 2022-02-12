@@ -1,4 +1,5 @@
 #include "MainMenu.hpp"
+#include "Window.hpp"
 
 #define GORILLA "assets/images/pnj/gorillas.png"
 #define PLAY "assets/images/main_menu/start.png"
@@ -11,19 +12,6 @@ sf::Texture *from_file(std::string file)
 
     t->loadFromFile(file);
     return t;
-}
-
-void sprite_from_file(sf::Sprite &s, std::string file, sf::IntRect *rect = nullptr)
-{
-    sf::Texture *t = from_file(file);
-    sf::Vector2u size = t->getSize();
-
-    s.setTexture(*t);
-    if (rect) {
-        s.setTextureRect(*rect);
-        s.setOrigin(rect->width / 2.0, rect->height / 2.0);
-    } else
-        s.setOrigin(sf::Vector2f(size.x / 2.0, size.y / 2.0));
 }
 
 MainMenu::MainMenu(sf::Vector2f win_size):
@@ -79,4 +67,17 @@ bool MainMenu::is_play(sf::Event const& ev)
 bool MainMenu::is_exit(sf::Event const& ev)
 {
     return m_exit.getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y);
+}
+
+void sprite_from_file(sf::Sprite &s, std::string file, sf::IntRect *rect)
+{
+    sf::Texture *t = from_file(file);
+    sf::Vector2u size = t->getSize();
+
+    s.setTexture(*t);
+    if (rect) {
+        s.setTextureRect(*rect);
+        s.setOrigin(rect->width / 2.0, rect->height / 2.0);
+    } else
+        s.setOrigin(sf::Vector2f(size.x / 2.0, size.y / 2.0));
 }

@@ -30,5 +30,7 @@ public:
     bool is_exit(sf::Event const& ev);
 };
 
+sf::Texture *from_file(std::string file);
+void sprite_from_file(sf::Sprite &s, std::string file, sf::IntRect *rect = nullptr);
 
 #endif /* MAIN_MENU */
