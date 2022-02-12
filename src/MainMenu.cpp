@@ -29,7 +29,7 @@ MainMenu::MainMenu(sf::Vector2f win_size):
     sprite_from_file(m_background, BACK);
 }
 
-void MainMenu::move_gori()
+void MainMenu::move_gori(Window &win)
 {
     auto pos = m_gorille.getPosition();
     sf::Vector2f new_pos(pos.x + m_gor_dir.x, pos.y + m_gor_dir.y);
@@ -41,6 +41,7 @@ void MainMenu::move_gori()
     if (change_y)
         m_gor_dir.y *= -1;
     if (change_x || change_y) {
+        win.addSuccess("Gorilla touched the wall");
         m_sprite_gori++;
         if (m_sprite_gori >= 5)
             m_sprite_gori = 0;
@@ -51,7 +52,7 @@ void MainMenu::move_gori()
 
 void MainMenu::draw_to(Window &win)
 {
-    move_gori();
+    move_gori(win);
 
     win.draw(m_background);
     win.draw(m_gorille);
