@@ -2,11 +2,12 @@
     #define MAIN_MENU_H
     #include "Window.hpp"
 
-static const sf::IntRect gori_sprites[4] {
+static const sf::IntRect gori_sprites[5] {
     {5, 0, 39, 48},
-    {0, 0, 39, 48},
-    {0, 0, 39, 48},
-    {0, 0, 48, 48},
+    {149, 0, 39, 48},
+    {293, 0, 39, 48},
+    {437, 0, 39, 48},
+    {437, 193, 39, 48}
 };
 
 class MainMenu
@@ -17,6 +18,8 @@ private:
 
     sf::Vector2f m_size;
     sf::Vector2f m_gor_dir;
+
+    int m_sprite_gori;
 
     void move_gori();
 public:
