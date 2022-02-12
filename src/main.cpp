@@ -86,16 +86,18 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car)
         win.draw_dark();
         menu.draw_to(win);
     }
+    win.drawEnemies();
     if (win.nbSuccess() > 0)
         check_success(win);
     win.display();
 }
 
-void move_all(Window &win, MainMenu &menu, Road &road, Car &car)
+void move_all(Window &win, Road &road, Car &car)
 {
     if (win.getMode() != MAIN_MENU) {
         move(road, car, win);
         road.move_back();
+        win.moveEnemies(road);
     }
 }
 
@@ -110,7 +112,7 @@ int main(void)
     win.addSuccess("First success");
     while (win.isOpen()) {
         if (win.stop == 0)
-            move_all(win, menu, road, car);
+            move_all(win, road, car);
         poll_events(win, menu);
         draw_win(win, menu, road, car);
     }
