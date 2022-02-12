@@ -2,18 +2,33 @@
 #include "MainMenu.hpp"
 #include "Car.hpp"
 
+#define DAMAGE_SFX "assets/sfx/crash.ogg"
+#define CRASH_SFX "assets/sfx/final_crash.ogg"
+
+void soundFromFile(sf::Sound &s, std::string const file)
+{
+    sf::SoundBuffer *buffer = new sf::SoundBuffer;
+
+    buffer->loadFromFile(file);
+    s.setBuffer(*buffer);
+}
+
 Car::Car():
     speed_r(0),
-    speed_l(0)
+    speed_l(0),
+    _state(0)
 {
     sf::Texture *t = new sf::Texture;
     t->loadFromFile("assets/images/car/car.png");
     sf::Vector2u size = t->getSize();
 
     m_car.setTexture(*t);
+    t->setRepeated(true);
     m_car.setOrigin(sf::Vector2f(size.x / 2.0, size.y / 2.0));
     m_car.setPosition(sf::Vector2f(400, 500));
     m_car.scale(0.2, 0.2);
+    soundFromFile(_damage_sfx, DAMAGE_SFX);
+    soundFromFile(_crash_sfx, CRASH_SFX);
 }
 
 void Car::move_left(Window &win)
@@ -63,4 +78,29 @@ void Car::move_right(Window &win)
 void Car::draw_to(Window &win)
 {
     win.draw(m_car);
+}
+
+void Car::resetDamage()
+{
+    sf::IntRect r = m_car.getTextureRect();
+
+    r.left -= r.width * _state;
+    m_car.setTextureRect(r);
+    _state = 0;
+}
+
+void Car::takeDamage()
+{
+    printf("here\n");
+    if (_state >= 3)
+        return;
+    if (_state == 2)
+        _crash_sfx.play();
+    else
+        _damage_sfx.play();
+    _state += 1;
+    sf::IntRect r = m_car.getTextureRect();
+
+    r.left += r.width;
+    m_car.setTextureRect(r);
 }

@@ -39,6 +39,7 @@ public:
     void addEnemy(int type, float x_start);
     void drawEnemies(void);
     void moveEnemies(Road &r);
+    const std::vector<Enemy> &getEnemies() const {return _enemies;}
     ~Window();
 };
 

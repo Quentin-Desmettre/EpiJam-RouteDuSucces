@@ -13,6 +13,7 @@ Window::Window(sf::VideoMode mode, std::string name, sf::Uint8 style):
 
 void Window::addSuccess(std::string const what)
 {
+    return;
     if (std::find(m_viewed_sc.begin(), m_viewed_sc.end(), what) != m_viewed_sc.end())
         return;
     m_sc.push_back(new Success(what, getSize()));

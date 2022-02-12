@@ -5,6 +5,35 @@
 #include "Car.hpp"
 #include "Success.hpp"
 
+void check_car_collision(Road &road, Car &car, Window &win)
+{
+    static bool left_col = false;
+    static bool right_col = false;
+
+    if (road.getCollisionLeft(car.getSprite().getGlobalBounds())) {
+        if (!left_col) {
+            car.takeDamage();
+            left_col = true;
+        }
+    } else if (car.getSprite().getPosition().x > 275)
+        left_col = false;
+    if (road.getCollisionRight(car.getSprite().getGlobalBounds())) {
+        if (!right_col) {
+            car.takeDamage();
+            right_col = true;
+        }
+    } else if (car.getSprite().getPosition().x < 525)
+        right_col = false;
+
+    auto en = win.getEnemies();
+    for (auto i: en) {
+        if (i.getGlobalBounds().intersects(car.getSprite().getGlobalBounds())) {
+            car.takeDamage();
+            break;
+        }
+    }
+}
+
 void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r)
 {
     if (ev.type == sf::Event::MouseButtonPressed) {
@@ -98,6 +127,7 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorill
 void move_all(Window &win, Road &road, Car &car)
 {
     if (win.getMode() != MAIN_MENU) {
+        check_car_collision(road, car, win);
         move(road, car, win);
         road.move_back();
         win.moveEnemies(road);
