@@ -15,8 +15,10 @@ class Road {
         sf::Sprite back_r;
         sf::Sprite **cones;
 
-        void move_back();
     public:
+        void move_back();
+        bool getCollisionLeft(sf::FloatRect car_hb);
+        bool getCollisionRight(sf::FloatRect car_hb);
         Road(Window &win);
 
         void draw(Window &win);

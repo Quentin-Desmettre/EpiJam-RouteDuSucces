@@ -48,3 +48,17 @@ Road::Road(Window &win)
     rect_r.left += 50;
     back_r.setTextureRect(rect_r);
 }
+
+bool Road::getCollisionLeft(sf::FloatRect car_hb)
+{
+    sf::FloatRect left_hb = back_l.getGlobalBounds();
+    // left_hb.left -= 5;
+    return (left_hb.intersects(car_hb)) ? true : false;
+}
+
+bool Road::getCollisionRight(sf::FloatRect car_hb)
+{
+    sf::FloatRect right_hb = back_r.getGlobalBounds();
+    // right_hb.width += 5;
+    return (right_hb.intersects(car_hb)) ? true : false;
+}

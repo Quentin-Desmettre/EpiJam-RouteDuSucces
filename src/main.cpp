@@ -56,8 +56,10 @@ int main(void)
     RRoad rroad;
 
     while (win.isOpen()) {
-        car.move_right();
-        car.move_left();
+        if (!road.getCollisionRight(car.getSprite().getGlobalBounds()))
+            car.move_right();
+        if (!road.getCollisionLeft(car.getSprite().getGlobalBounds()))
+            car.move_left();
         poll_events(win, menu, s);
         draw_win(win, menu, road, car, rroad, s);
     }
