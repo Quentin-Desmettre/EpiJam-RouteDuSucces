@@ -4,7 +4,7 @@
 
 #define GORILLA "assets/images/pnj/gorillas.png"
 
-void Gorilla::move()
+void Gorilla::_move()
 {
     if (sprite.getPosition().x <= 270 || sprite.getPosition().x >= 550 || rand() % 80 == 0)
         dir = -dir;
@@ -14,7 +14,16 @@ void Gorilla::move()
 void Gorilla::draw(Window &win)
 {
     win.draw(sprite);
-    move();
+}
+
+void Gorilla::move(Window &win)
+{
+    _move();
+    if (_place_clock.getElapsedTime() > _time_place) {
+        win.addEnemy(rand() % 3, sprite.getPosition().x);
+        _time_place = sf::milliseconds(rand() % 1500 + 500);
+        _place_clock.restart();
+    }
 }
 
 Gorilla::Gorilla()

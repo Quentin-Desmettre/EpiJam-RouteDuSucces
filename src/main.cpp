@@ -5,44 +5,7 @@
 #include "Car.hpp"
 #include "Success.hpp"
 
-void check_car_collision(Road &road, Car &car, Window &win)
-{
-    static bool left_col = false;
-    static bool right_col = false;
-
-    if (road.getCollisionLeft(car.getSprite().getGlobalBounds())) {
-        if (!left_col) {
-            car.takeDamage();
-            left_col = true;
-        }
-    } else if (car.getSprite().getPosition().x > 275)
-        left_col = false;
-    if (road.getCollisionRight(car.getSprite().getGlobalBounds())) {
-        if (!right_col) {
-            car.takeDamage();
-            right_col = true;
-        }
-    } else if (car.getSprite().getPosition().x < 525)
-        right_col = false;
-
-    auto en = win.getEnemies();
-    for (auto i: en) {
-        if (i.getGlobalBounds().intersects(car.getSprite().getGlobalBounds())) {
-            car.takeDamage();
-            break;
-        }
-    }
-    if (car.getState() == 0)
-        return;
-    std::string s;
-    if (car.isGameOver())
-        s = "Crashed the car";
-    else
-        s = "Got hit " + std::to_string(car.getState()) + " time";
-    if (!car.isGameOver() && car.getState() > 1)
-        s += 's';
-    win.addSuccess(s);
-}
+void check_car_collision(Road &road, Car &car, Window &win);
 
 void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r)
 {
@@ -59,6 +22,8 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r)
             win.stop = 0;
         } else if (menu.is_play(ev)) {
             win.addSuccess("Played the game");
+            if (win.getMode() == MAIN_MENU)
+                win.clearEnemies();
             win.setMode(PLAY);
             win.stop = 0;
         }
@@ -128,17 +93,19 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorill
         menu.draw_to(win);
     } else if (win.getMode() != MAIN_MENU)
         gorilla.draw(win);
-    win.drawEnemies();
+    if (win.getMode() != MAIN_MENU)
+        win.drawEnemies();
     if (win.nbSuccess() > 0)
         check_success(win);
     win.display();
 }
 
-void move_all(Window &win, Road &road, Car &car)
+void move_all(Window &win, Road &road, Car &car, Gorilla &g)
 {
     if (win.getMode() != MAIN_MENU) {
         check_car_collision(road, car, win);
         move(road, car, win);
+        g.move(win);
         road.move_back();
         win.moveEnemies(road);
     }
@@ -156,7 +123,7 @@ int main(void)
     win.addSuccess("First success");
     while (win.isOpen()) {
         if (win.stop == 0)
-            move_all(win, road, car);
+            move_all(win, road, car, gorilla);
         poll_events(win, menu, road);
         draw_win(win, menu, road, car, gorilla);
     }

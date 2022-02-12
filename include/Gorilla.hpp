@@ -8,12 +8,17 @@ class Gorilla {
         int dir;
 
         sf::Sprite sprite;
+
+        sf::Clock _place_clock;
+        sf::Time _time_place;
+        void _move();
     public:
         Gorilla();
 
         void add_enemy();
-        void move();
+        void move(Window &win);
         void draw(Window &win);
+        void resetClock() {_place_clock.restart();}
 };
 
 #endif

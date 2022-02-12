@@ -12,10 +12,13 @@ class Road;
 
 class Enemy : public sf::Sprite
 {
+private:
+    int _type;
 public:
     Enemy(int const type, float const x_start);
 
     void update_pos(Road &r);
+    int getType() const {return _type;}
 };
 
 #endif /* C14B8CCC_176F_4FC2_A6E4_02D0F4E6D911 */
