@@ -1,6 +1,7 @@
 #include "Road.hpp"
 #include "Window.hpp"
 #include "MainMenu.hpp"
+#include "Car.hpp"
 
 void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
 {
@@ -25,13 +26,15 @@ void poll_events(Window &win, MainMenu &menu)
     }
 }
 
-void draw_win(Window &win, MainMenu &menu, Road road)
+void draw_win(Window &win, MainMenu &menu, Road road, Car car)
 {
     win.clear(sf::Color::Blue);
     if (win.getMode() == MAIN_MENU) {
         menu.draw_to(win);
-    } else
+    } else {
         road.draw(win);
+        car.draw_to(win);
+    }
     win.display();
 }
 
@@ -40,10 +43,13 @@ int main(void)
     Window win(sf::VideoMode(800, 600), "Route du succès", sf::Style::Close | sf::Style::Resize);
     MainMenu menu(sf::Vector2f(800, 600));
     Road road;
+    Car car;
 
     while (win.isOpen()) {
+        car.move_right();
+        car.move_left();
         poll_events(win, menu);
-        draw_win(win, menu, road);
+        draw_win(win, menu, road, car);
     }
     return 0;
 }
