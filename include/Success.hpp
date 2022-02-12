@@ -25,6 +25,8 @@ public:
     bool hasPlayed() const {return has_played;}
 
     void setText(std::string const txt);
+
+    ~Success();
 };
 
 #endif /* FC771CB9_4F53_473A_8DE1_22E751EA9BA1 */

@@ -78,3 +78,11 @@ void Success::draw_to(Window &win)
     win.draw(m_achiev);
     win.draw(m_text);
 }
+
+Success::~Success()
+{
+    delete m_sound.getBuffer();
+    delete m_text.getFont();
+    delete m_achiev.getFont();
+    delete m_box.getTexture();
+}
