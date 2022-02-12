@@ -1,11 +1,9 @@
 #include "Road.hpp"
-
+#include "MainMenu.hpp"
 #define BACK "assets/images/env/building.png"
 #define ROAD "assets/images/env/road.png"
 
 sf::Texture *from_file(std::string file);
-
-void sprite_from_file(sf::Sprite &s, std::string file, sf::IntRect *rect = nullptr);
 
 void Road::move_back()
 {

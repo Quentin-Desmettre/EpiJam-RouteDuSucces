@@ -11,6 +11,8 @@
 typedef enum {MAIN_MENU, PLAY} win_mode;
 
 class Success;
+class Road;
+class Enemy;
 
 class Window : public sf::RenderWindow
 {
@@ -34,7 +36,7 @@ public:
     Success *curSuccess(void);
     std::size_t nbSuccess(void) const {return m_sc.size();}
 
-    void addEnemy(enemy_type type, float x_start);
+    void addEnemy(int type, float x_start);
     void drawEnemies(void);
     void moveEnemies(Road &r);
     ~Window();
