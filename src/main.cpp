@@ -1,6 +1,7 @@
 #include "Road.hpp"
 #include "Window.hpp"
 #include "MainMenu.hpp"
+#include "Gorilla.hpp"
 #include "Car.hpp"
 #include "Success.hpp"
 
@@ -14,9 +15,9 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
         }
         if (menu.is_exit(ev) && win.stop == 1) {
             win.addSuccess("Back to menu");
-            win.close();
-        }
-        else if (menu.is_play(ev)) {
+            win.setMode(MAIN_MENU);
+            win.stop = 0;
+        } else if (menu.is_play(ev)) {
             win.addSuccess("Played the game");
             win.setMode(PLAY);
             win.stop = 0;
@@ -73,7 +74,7 @@ void move(Road &road, Car &car, Window &win)
         win.addSuccess("Touched the left wall");
 }
 
-void draw_win(Window &win, MainMenu &menu, Road &road, Car &car)
+void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorilla)
 {
     win.clear(sf::Color::Black);
     if (win.getMode() == MAIN_MENU) {
@@ -85,7 +86,8 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car)
     if (win.stop) {
         win.draw_dark();
         menu.draw_to(win);
-    }
+    } else if (win.getMode() != MAIN_MENU)
+        gorilla.draw(win);
     win.drawEnemies();
     if (win.nbSuccess() > 0)
         check_success(win);
@@ -107,6 +109,7 @@ int main(void)
     MainMenu menu(sf::Vector2f(800, 600));
     Road road(win);
     Car car;
+    Gorilla gorilla;
 
     win.addSuccess("Launched the game");
     win.addSuccess("First success");
@@ -114,7 +117,7 @@ int main(void)
         if (win.stop == 0)
             move_all(win, road, car);
         poll_events(win, menu);
-        draw_win(win, menu, road, car);
+        draw_win(win, menu, road, car, gorilla);
     }
     return 0;
 }
