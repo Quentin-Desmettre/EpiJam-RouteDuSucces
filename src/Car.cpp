@@ -12,7 +12,7 @@ Car::Car():
 
     m_car.setTexture(*t);
     m_car.setOrigin(sf::Vector2f(size.x / 2.0, size.y / 2.0));
-    m_car.setPosition(sf::Vector2f(400, 400));
+    m_car.setPosition(sf::Vector2f(400, 500));
     m_car.scale(0.2, 0.2);
 }
 
