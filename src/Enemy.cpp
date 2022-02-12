@@ -9,7 +9,7 @@ static const sf::Texture *textures[3] = {
     from_file(BANANA_PNG)
 };
 
-Enemy::Enemy(enemy_type const type, float const x_start)
+Enemy::Enemy(int const type, float const x_start)
 {
     setTexture(*(textures[type]));
     setPosition(x_start, 0);

@@ -10,6 +10,8 @@ static const sf::IntRect gori_sprites[5] {
     {437, 193, 39, 48}
 };
 
+class Window;
+
 class MainMenu
 {
 private:
