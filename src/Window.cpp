@@ -39,9 +39,9 @@ Success *Window::curSuccess(void)
     return m_sc.front();
 }
 
-void Window::addEnemy(Enemy e)
+void Window::addEnemy(enemy_type type, float x_start)
 {
-    _enemies.push_back(e);
+    _enemies.push_back(Enemy(type, x_start));
 }
 
 void Window::drawEnemies(void)

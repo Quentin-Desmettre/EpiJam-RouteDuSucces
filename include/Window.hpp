@@ -34,7 +34,7 @@ public:
     Success *curSuccess(void);
     std::size_t nbSuccess(void) const {return m_sc.size();}
 
-    void addEnemy(Enemy e);
+    void addEnemy(enemy_type type, float x_start);
     void drawEnemies(void);
     void moveEnemies(Road &r);
     ~Window();
