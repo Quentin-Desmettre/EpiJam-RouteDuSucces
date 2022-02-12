@@ -3,12 +3,21 @@
 #include <iostream>
 #define BOX_SPRITE "assets/images/achievements/achievement_box.png"
 #define FONT "assets/fonts/Minecraft.ttf"
+#define SFX_SUCCESS "assets/sfx/achieve.ogg"
 
 int next_word_length(char const *beg)
 {
     int len = 0;
     for (int i = 0; beg[i] && beg[i] != ' '; len++, i++);
     return len;
+}
+
+void init_sound(sf::Sound &s)
+{
+    sf::SoundBuffer *buffer = new sf::SoundBuffer;
+
+    buffer->loadFromFile(SFX_SUCCESS);
+    s.setBuffer(*buffer);
 }
 
 void load_text(sf::Text &t, std::string const name)
@@ -40,7 +49,8 @@ void init_text(sf::Text &t, std::string const name)
 }
 
 Success::Success(std::string const name, sf::Vector2u const size):
-    sf::Clock()
+    sf::Clock(),
+    has_played(false)
 {
     sf::Vector2f pos(size.x * 0.58, size.y * 0.02);
     sprite_from_file(m_box, BOX_SPRITE);
@@ -53,6 +63,13 @@ Success::Success(std::string const name, sf::Vector2u const size):
     m_achiev.setPosition(pos.x + 20, pos.y + 20);
     m_box.setPosition(pos);
     m_text.setPosition(pos.x + 20, pos.y + 20);
+    init_sound(m_sound);
+}
+
+void Success::setText(std::string const txt)
+{
+    reset();
+    load_text(m_text, txt);
 }
 
 void Success::draw_to(Window &win)
