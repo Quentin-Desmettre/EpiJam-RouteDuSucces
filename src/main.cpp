@@ -32,6 +32,16 @@ void check_car_collision(Road &road, Car &car, Window &win)
             break;
         }
     }
+    if (car.getState() == 0)
+        return;
+    std::string s;
+    if (car.isGameOver())
+        s = "Crashed the car";
+    else
+        s = "Got hit " + std::to_string(car.getState()) + " time";
+    if (!car.isGameOver() && car.getState() > 1)
+        s += 's';
+    win.addSuccess(s);
 }
 
 void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r)

@@ -91,7 +91,6 @@ void Car::resetDamage()
 
 void Car::takeDamage()
 {
-    printf("here\n");
     if (_state >= 3)
         return;
     if (_state == 2)
