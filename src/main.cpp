@@ -9,8 +9,10 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
     if (ev.type == sf::Event::MouseButtonPressed) {
         if (menu.is_exit(ev))
             win.close();
-        else if (menu.is_play(ev))
+        else if (menu.is_play(ev)) {
+            win.addSuccess("Played the game");
             win.setMode(PLAY);
+        }
     }
 }
 
@@ -57,13 +59,15 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car car)
 
 void move(Road &road, Car &car, Window &win)
 {
-    if (!road.getCollisionRight(car.getSprite().getGlobalBounds()))
+    if (!road.getCollisionRight(car.getSprite().getGlobalBounds())) {
         car.move_right();
-    else
+        win.addSuccess("Moved right");
+    } else
         win.addSuccess("Touch the right wall");
-    if (!road.getCollisionLeft(car.getSprite().getGlobalBounds()))
+    if (!road.getCollisionLeft(car.getSprite().getGlobalBounds())) {
         car.move_left();
-    else
+        win.addSuccess("Moved left");
+    } else
         win.addSuccess("Touch the left wall");
 }
 
@@ -75,6 +79,7 @@ int main(void)
     Car car;
 
     win.addSuccess("Launched the game");
+    win.addSuccess("First success");
     while (win.isOpen()) {
         move(road, car, win);
         poll_events(win, menu);

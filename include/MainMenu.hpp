@@ -21,7 +21,7 @@ private:
 
     int m_sprite_gori;
 
-    void move_gori();
+    void move_gori(Window &win);
 public:
     MainMenu(sf::Vector2f win_size);
 
