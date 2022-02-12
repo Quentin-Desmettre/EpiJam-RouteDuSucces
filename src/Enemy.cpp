@@ -13,12 +13,9 @@ Enemy::Enemy(enemy_type const type, float const x_start)
 {
     setTexture(*(textures[type]));
     setPosition(x_start, 0);
-    m_x_velo = 5;
 }
 
 void Enemy::update_pos(Road &r)
 {
     move(0, r.getSpeed());
-    if (m_x_velo < 15)
-        m_x_velo += 0.001;
 }
