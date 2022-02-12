@@ -44,12 +44,14 @@ void poll_events(Window &win, MainMenu &menu)
         if (win.getMode() == MAIN_MENU || win.stop)
             check_menu_event(win, menu, ev);
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        win.addSuccess("Drift god");
 }
 
 void check_success(Window &win)
 {
     Success *cur = win.curSuccess();
-    if (cur->msElapsed() < 3000) {
+    if (cur->msElapsed() < 2000) {
         if (!cur->hasPlayed())
             cur->play();
         cur->draw_to(win);

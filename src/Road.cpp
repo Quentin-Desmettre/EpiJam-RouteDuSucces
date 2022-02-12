@@ -9,15 +9,14 @@ void sprite_from_file(sf::Sprite &s, std::string file, sf::IntRect *rect = nullp
 
 void Road::move_back()
 {
-    static float speed = 5;
     sf::IntRect rect_l = back_l.getTextureRect();
     sf::IntRect rect_r = back_r.getTextureRect();
 
-    _rect.top -= speed;
-    rect_l.left += speed;
-    rect_r.left -= speed;
-    if (speed < 15)
-        speed += 0.001;
+    _rect.top -= _speed;
+    rect_l.left += _speed;
+    rect_r.left -= _speed;
+    if (_speed < 15)
+        _speed += 0.001;
     _sprite.setTextureRect(_rect);
     back_l.setTextureRect(rect_l);
     back_r.setTextureRect(rect_r);
@@ -58,6 +57,8 @@ Road::Road(Window &win)
     _sprite.setTextureRect(_rect);
     _sprite.setScale(1.25, 1.25);
     _sprite.setPosition(195 * 1.25 - 20, 0);
+
+    _speed = 5;
 }
 
 

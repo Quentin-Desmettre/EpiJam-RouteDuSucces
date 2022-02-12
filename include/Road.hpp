@@ -17,6 +17,7 @@ class Road {
         sf::Sprite _sprite;
         sf::Texture _texture;
         sf::IntRect _rect;
+        float _speed;
 
     public:
         void move_back();
@@ -27,6 +28,7 @@ class Road {
 
         // GETTERS && SETTERS
         sf::Sprite getSprite() const {return _sprite;};
+        float getSpeed() const {return _speed;}
 
         // METHODS
         void update(Window &win);
