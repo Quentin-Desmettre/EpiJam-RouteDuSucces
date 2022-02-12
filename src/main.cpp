@@ -2,7 +2,7 @@
 #include "Window.hpp"
 #include "MainMenu.hpp"
 #include "Car.hpp"
-#include "RRoad.hpp"
+#include "Success.hpp"
 
 void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
 {
@@ -41,13 +41,12 @@ void check_success(Window &win)
     }
 }
 
-void draw_win(Window &win, MainMenu &menu, Road &road, Car car, RRoad &rroad)
+void draw_win(Window &win, MainMenu &menu, Road &road, Car car)
 {
     win.clear(sf::Color::Blue);
     if (win.getMode() == MAIN_MENU) {
         menu.draw_to(win);
     } else {
-        rroad.update(win);
         road.draw(win);
         car.draw_to(win);
     }
@@ -62,13 +61,15 @@ int main(void)
     MainMenu menu(sf::Vector2f(800, 600));
     Road road(win);
     Car car;
-    RRoad rroad;
 
+    win.addSuccess("Launched the game");
     while (win.isOpen()) {
-        car.move_right();
-        car.move_left();
+        if (!road.getCollisionRight(car.getSprite().getGlobalBounds()))
+            car.move_right();
+        if (!road.getCollisionLeft(car.getSprite().getGlobalBounds()))
+            car.move_left();
         poll_events(win, menu);
-        draw_win(win, menu, road, car, rroad);
+        draw_win(win, menu, road, car);
     }
     return 0;
 }

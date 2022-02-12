@@ -15,6 +15,7 @@ public:
     void draw_to(Window &win);
     void move_left();
     void move_right();
+    sf::Sprite getSprite() const {return m_car;};
 };
 
 
