@@ -43,32 +43,31 @@ void check_success(Window &win)
     }
 }
 
-void draw_win(Window &win, MainMenu &menu, Road &road, Car car)
+void move(Road &road, Car &car, Window &win)
+{
+    if (!road.getCollisionRight(car.getSprite().getGlobalBounds())) {
+        car.move_right();
+    } else
+        win.addSuccess("Touch the right wall");
+    if (!road.getCollisionLeft(car.getSprite().getGlobalBounds())) {
+        car.move_left();
+    } else
+        win.addSuccess("Touch the left wall");
+}
+
+void draw_win(Window &win, MainMenu &menu, Road &road, Car &car)
 {
     win.clear(sf::Color::Blue);
     if (win.getMode() == MAIN_MENU) {
         menu.draw_to(win);
     } else {
+        move(road, car, win);
         road.draw(win);
         car.draw_to(win);
     }
     if (win.nbSuccess() > 0)
         check_success(win);
     win.display();
-}
-
-void move(Road &road, Car &car, Window &win)
-{
-    if (!road.getCollisionRight(car.getSprite().getGlobalBounds())) {
-        car.move_right();
-        win.addSuccess("Moved right");
-    } else
-        win.addSuccess("Touch the right wall");
-    if (!road.getCollisionLeft(car.getSprite().getGlobalBounds())) {
-        car.move_left();
-        win.addSuccess("Moved left");
-    } else
-        win.addSuccess("Touch the left wall");
 }
 
 int main(void)
@@ -81,7 +80,6 @@ int main(void)
     win.addSuccess("Launched the game");
     win.addSuccess("First success");
     while (win.isOpen()) {
-        move(road, car, win);
         poll_events(win, menu);
         draw_win(win, menu, road, car);
     }

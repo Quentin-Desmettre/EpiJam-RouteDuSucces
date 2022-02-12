@@ -33,6 +33,8 @@ void Car::move_left()
     pos.x -= speed_l;
     if (press)
         m_car.setRotation(-20);
+    if ((speed_l == 0 && speed_r == 0) || (speed_l == 15 && speed_r == 15))
+        m_car.setRotation(0);
     m_car.setPosition(pos);
 }
 
@@ -53,8 +55,6 @@ void Car::move_right()
     pos.x += speed_r;
     if (press)
         m_car.setRotation(20);
-    if ((speed_l == 0 && speed_r == 0) || (speed_l == 30 && speed_r == 30))
-        m_car.setRotation(0);
     m_car.setPosition(pos);
 }
 

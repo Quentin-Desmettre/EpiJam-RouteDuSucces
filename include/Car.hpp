@@ -1,6 +1,7 @@
 #ifndef CAR_H
     #define CAR_H
     #include "Window.hpp"
+    #include "Road.hpp"
 
 
 class Car
