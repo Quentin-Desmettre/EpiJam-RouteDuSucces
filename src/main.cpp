@@ -26,7 +26,7 @@ void poll_events(Window &win, MainMenu &menu)
     }
 }
 
-void draw_win(Window &win, MainMenu &menu, Road road, Car car)
+void draw_win(Window &win, MainMenu &menu, Road &road, Car car)
 {
     win.clear(sf::Color::Blue);
     if (win.getMode() == MAIN_MENU) {
@@ -42,7 +42,7 @@ int main(void)
 {
     Window win(sf::VideoMode(800, 600), "Route du succès", sf::Style::Close | sf::Style::Resize);
     MainMenu menu(sf::Vector2f(800, 600));
-    Road road;
+    Road road(win);
     Car car;
 
     while (win.isOpen()) {

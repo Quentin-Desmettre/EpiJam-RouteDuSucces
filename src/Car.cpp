@@ -24,7 +24,7 @@ void Car::move_left()
         else
             press = 0;
     sf::Vector2f pos = m_car.getPosition();
-    if (press && speed_l < 20)
+    if (press && speed_l < 15)
         speed_l += 1;
     if (!press && speed_l > 0)
         speed_l -= 3;
@@ -44,7 +44,7 @@ void Car::move_right()
         else
             press = 0;
     sf::Vector2f pos = m_car.getPosition();
-    if (press && speed_r < 20)
+    if (press && speed_r < 15)
         speed_r += 1;
     if (!press && speed_r > 0)
         speed_r -= 3;

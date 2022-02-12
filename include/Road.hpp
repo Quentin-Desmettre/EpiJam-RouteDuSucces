@@ -8,13 +8,16 @@
 
 class Road {
     private:
+        sf::Texture *back_text;
+
         sf::Sprite road;
-        sf::Sprite back;
+        sf::Sprite back_l;
+        sf::Sprite back_r;
         sf::Sprite **cones;
 
-        sf::Vector2f pos_back;
+        void move_back();
     public:
-        Road();
+        Road(Window &win);
 
         void draw(Window &win);
 };
