@@ -14,11 +14,22 @@ class Road {
         sf::Sprite back_l;
         sf::Sprite back_r;
         sf::Sprite **cones;
+        sf::Sprite _sprite;
+        sf::Texture _texture;
+        sf::IntRect _rect;
 
     public:
         void move_back();
         bool getCollisionLeft(sf::FloatRect car_hb);
         bool getCollisionRight(sf::FloatRect car_hb);
+        // CONSTRUCTOR && DESTRUCTOR
+        ~Road();
+
+        // GETTERS && SETTERS
+        sf::Sprite getSprite() const {return _sprite;};
+
+        // METHODS
+        void update(Window &win);
         Road(Window &win);
 
         void draw(Window &win);
