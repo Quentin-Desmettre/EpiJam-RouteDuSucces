@@ -1,8 +1,8 @@
 #include "MainMenu.hpp"
 
 #define GORILLA "assets/images/pnj/gorillas.png"
-#define PLAY ""
-#define EXIT ""
+#define PLAY "assets/images/main_menu/start.png"
+#define EXIT "assets/images/main_menu/quit.png"
 #define BACK ""
 
 sf::Texture *from_file(std::string file)
@@ -33,8 +33,11 @@ MainMenu::MainMenu(sf::Vector2f win_size):
 {
     sprite_from_file(m_gorille, GORILLA, (sf::IntRect*)(gori_sprites));
     m_gorille.scale(3.3, 3.3);
+
     sprite_from_file(m_play, PLAY);
+    m_play.setPosition(win_size.x / 2.0, win_size.y * 0.37);
     sprite_from_file(m_exit, EXIT);
+    m_exit.setPosition(win_size.x / 2.0, win_size.y * 0.63);
     sprite_from_file(m_background, BACK);
 }
 
