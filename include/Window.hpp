@@ -18,10 +18,13 @@ private:
     win_mode m_mode;
     std::list<Success*> m_sc;
     std::vector<std::string> m_viewed_sc;
+    sf::RectangleShape dark;
 
     std::vector<Enemy> _enemies;
 
 public:
+    int stop;
+    void draw_dark();
     Window(sf::VideoMode mode, std::string name, sf::Uint8 style);
     win_mode getMode(void) {return m_mode;}
     void setMode(win_mode new_mode) {m_mode = new_mode;}

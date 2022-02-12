@@ -7,14 +7,19 @@
 void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
 {
     if (ev.type == sf::Event::MouseButtonPressed) {
-        if (menu.is_exit(ev)) {
+        if (menu.is_exit(ev) && win.stop == 0) {
             win.addSuccess("Tried to exit");
             if (win.nbSuccess() == 0)
                 win.close();
         }
+        if (menu.is_exit(ev) && win.stop == 1) {
+            win.addSuccess("Back to menu");
+            win.close();
+        }
         else if (menu.is_play(ev)) {
             win.addSuccess("Played the game");
             win.setMode(PLAY);
+            win.stop = 0;
         }
     }
 }
@@ -25,12 +30,17 @@ void poll_events(Window &win, MainMenu &menu)
 
     while (win.pollEvent(ev)) {
         if (ev.type == sf::Event::Closed ||
-        (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape)) {
+        ((ev.type == sf::Event::KeyPressed && win.getMode() == MAIN_MENU) && ev.key.code == sf::Keyboard::Escape)) {
             win.addSuccess("Tried to exit");
             if (win.nbSuccess() == 0)
                 win.close();
         }
-        if (win.getMode() == MAIN_MENU)
+        if (
+        (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape && win.getMode() != MAIN_MENU)) {
+            win.addSuccess("Do you want a little break?");
+            win.stop = !win.stop;
+        }
+        if (win.getMode() == MAIN_MENU || win.stop)
             check_menu_event(win, menu, ev);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -65,17 +75,28 @@ void move(Road &road, Car &car, Window &win)
 
 void draw_win(Window &win, MainMenu &menu, Road &road, Car &car)
 {
-    win.clear(sf::Color::Blue);
+    win.clear(sf::Color::Black);
     if (win.getMode() == MAIN_MENU) {
         menu.draw_to(win);
     } else {
-        move(road, car, win);
         road.draw(win);
         car.draw_to(win);
+    }
+    if (win.stop) {
+        win.draw_dark();
+        menu.draw_to(win);
     }
     if (win.nbSuccess() > 0)
         check_success(win);
     win.display();
+}
+
+void move_all(Window &win, MainMenu &menu, Road &road, Car &car)
+{
+    if (win.getMode() != MAIN_MENU) {
+        move(road, car, win);
+        road.move_back();
+    }
 }
 
 int main(void)
@@ -88,6 +109,8 @@ int main(void)
     win.addSuccess("Launched the game");
     win.addSuccess("First success");
     while (win.isOpen()) {
+        if (win.stop == 0)
+            move_all(win, menu, road, car);
         poll_events(win, menu);
         draw_win(win, menu, road, car);
     }

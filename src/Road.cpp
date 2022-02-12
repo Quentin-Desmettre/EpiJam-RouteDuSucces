@@ -24,8 +24,6 @@ void Road::move_back()
 
 void Road::draw(Window &win)
 {
-    move_back();
-
     win.draw(_sprite);
     win.draw(back_l);
     win.draw(back_r);
