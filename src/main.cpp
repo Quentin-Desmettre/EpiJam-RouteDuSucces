@@ -14,8 +14,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
         }
         if (menu.is_exit(ev) && win.stop == 1) {
             win.addSuccess("Back to menu");
-            if (win.nbSuccess() == 0)
-                win.close();
+            win.close();
         }
         else if (menu.is_play(ev)) {
             win.addSuccess("Played the game");
