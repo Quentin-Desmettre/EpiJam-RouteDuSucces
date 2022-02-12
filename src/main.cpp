@@ -7,8 +7,11 @@
 void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
 {
     if (ev.type == sf::Event::MouseButtonPressed) {
-        if (menu.is_exit(ev))
-            win.close();
+        if (menu.is_exit(ev)) {
+            win.addSuccess("Tried to exit");
+            if (win.nbSuccess() == 0)
+                win.close();
+        }
         else if (menu.is_play(ev)) {
             win.addSuccess("Played the game");
             win.setMode(PLAY);
@@ -22,8 +25,11 @@ void poll_events(Window &win, MainMenu &menu)
 
     while (win.pollEvent(ev)) {
         if (ev.type == sf::Event::Closed ||
-        (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape))
-            win.close();
+        (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape)) {
+            win.addSuccess("Tried to exit");
+            if (win.nbSuccess() == 0)
+                win.close();
+        }
         if (win.getMode() == MAIN_MENU)
             check_menu_event(win, menu, ev);
     }
