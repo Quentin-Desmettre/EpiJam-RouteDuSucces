@@ -55,6 +55,18 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car car)
     win.display();
 }
 
+void move(Road &road, Car &car, Window &win)
+{
+    if (!road.getCollisionRight(car.getSprite().getGlobalBounds()))
+        car.move_right();
+    else
+        win.addSuccess("Touch the right wall");
+    if (!road.getCollisionLeft(car.getSprite().getGlobalBounds()))
+        car.move_left();
+    else
+        win.addSuccess("Touch the left wall");
+}
+
 int main(void)
 {
     Window win(sf::VideoMode(800, 600), "Route du succès", sf::Style::Close | sf::Style::Resize);
@@ -64,10 +76,7 @@ int main(void)
 
     win.addSuccess("Launched the game");
     while (win.isOpen()) {
-        if (!road.getCollisionRight(car.getSprite().getGlobalBounds()))
-            car.move_right();
-        if (!road.getCollisionLeft(car.getSprite().getGlobalBounds()))
-            car.move_left();
+        move(road, car, win);
         poll_events(win, menu);
         draw_win(win, menu, road, car);
     }
