@@ -14,8 +14,8 @@ private:
 public:
     Car();
     void draw_to(Window &win);
-    void move_left();
-    void move_right();
+    void move_left(Window &win);
+    void move_right(Window &win);
     sf::Sprite getSprite() const {return m_car;};
 };
 

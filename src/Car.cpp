@@ -16,13 +16,14 @@ Car::Car():
     m_car.scale(0.2, 0.2);
 }
 
-void Car::move_left()
+void Car::move_left(Window &win)
 {
     int press = 0;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-            press = 1;
-        else
-            press = 0;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+        press = 1;
+        win.addSuccess("Moved left");
+    } else
+        press = 0;
     sf::Vector2f pos = m_car.getPosition();
     if (press && speed_l < 15)
         speed_l += 1;
@@ -38,13 +39,14 @@ void Car::move_left()
     m_car.setPosition(pos);
 }
 
-void Car::move_right()
+void Car::move_right(Window &win)
 {
     int press = 0;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            press = 1;
-        else
-            press = 0;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        press = 1;
+        win.addSuccess("Moved right");
+    } else
+        press = 0;
     sf::Vector2f pos = m_car.getPosition();
     if (press && speed_r < 15)
         speed_r += 1;

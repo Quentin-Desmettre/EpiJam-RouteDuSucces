@@ -46,13 +46,13 @@ void check_success(Window &win)
 void move(Road &road, Car &car, Window &win)
 {
     if (!road.getCollisionRight(car.getSprite().getGlobalBounds())) {
-        car.move_right();
+        car.move_right(win);
     } else
-        win.addSuccess("Touch the right wall");
+        win.addSuccess("Touched the right wall");
     if (!road.getCollisionLeft(car.getSprite().getGlobalBounds())) {
-        car.move_left();
+        car.move_left(win);
     } else
-        win.addSuccess("Touch the left wall");
+        win.addSuccess("Touched the left wall");
 }
 
 void draw_win(Window &win, MainMenu &menu, Road &road, Car &car)
