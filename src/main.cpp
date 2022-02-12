@@ -1,7 +1,17 @@
 #include "Window.hpp"
 #include "MainMenu.hpp"
 
-void poll_events(Window &win)
+void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
+{
+    if (ev.type == sf::Event::MouseButtonPressed) {
+        if (menu.is_exit(ev))
+            win.close();
+        else if (menu.is_play(ev))
+            win.setMode(PLAY);
+    }
+}
+
+void poll_events(Window &win, MainMenu &menu)
 {
     sf::Event ev;
 
@@ -9,6 +19,8 @@ void poll_events(Window &win)
         if (ev.type == sf::Event::Closed ||
         (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape))
             win.close();
+        if (win.getMode() == MAIN_MENU)
+            check_menu_event(win, menu, ev);
     }
 }
 
@@ -27,7 +39,7 @@ int main(void)
     MainMenu menu(sf::Vector2f(800, 600));
 
     while (win.isOpen()) {
-        poll_events(win);
+        poll_events(win, menu);
         draw_win(win, menu);
     }
     return 0;

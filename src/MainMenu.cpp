@@ -70,3 +70,13 @@ void MainMenu::draw_to(Window &win)
     win.draw(m_play);
     win.draw(m_exit);
 }
+
+bool MainMenu::is_play(sf::Event const& ev)
+{
+    return m_play.getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y);
+}
+
+bool MainMenu::is_exit(sf::Event const& ev)
+{
+    return m_exit.getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y);
+}

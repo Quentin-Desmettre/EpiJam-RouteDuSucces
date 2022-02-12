@@ -26,6 +26,8 @@ public:
     MainMenu(sf::Vector2f win_size);
 
     void draw_to(Window &win);
+    bool is_play(sf::Event const& ev);
+    bool is_exit(sf::Event const& ev);
 };
 
 
