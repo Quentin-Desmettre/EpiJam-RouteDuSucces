@@ -1,8 +1,10 @@
-#ifndef FC771CB9_4F53_473A_8DE1_22E751EA9BA1
-#define FC771CB9_4F53_473A_8DE1_22E751EA9BA1
+#ifndef SUCCESS_HPP
+#define SUCCESS_HPP
 
 #include "Window.hpp"
 #include <SFML/Audio.hpp>
+
+class Window;
 
 class Success : public sf::Clock
 {
@@ -29,4 +31,4 @@ public:
     ~Success();
 };
 
-#endif /* FC771CB9_4F53_473A_8DE1_22E751EA9BA1 */
+#endif /* SUCCESS_HPP */

@@ -3,7 +3,6 @@
 #include "MainMenu.hpp"
 #include "Car.hpp"
 #include "RRoad.hpp"
-#include "Success.hpp"
 
 void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
 {
@@ -15,7 +14,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
     }
 }
 
-void poll_events(Window &win, MainMenu &menu, Success &s)
+void poll_events(Window &win, MainMenu &menu)
 {
     sf::Event ev;
 
@@ -28,7 +27,21 @@ void poll_events(Window &win, MainMenu &menu, Success &s)
     }
 }
 
-void draw_win(Window &win, MainMenu &menu, Road &road, Car car, RRoad &rroad, Success &success)
+void check_success(Window &win)
+{
+    Success *cur = win.curSuccess();
+    if (cur->msElapsed() < 3000) {
+        if (!cur->hasPlayed())
+            cur->play();
+        cur->draw_to(win);
+    } else {
+        win.popSuccess();
+        if (win.curSuccess())
+            win.curSuccess()->reset();
+    }
+}
+
+void draw_win(Window &win, MainMenu &menu, Road &road, Car car, RRoad &rroad)
 {
     win.clear(sf::Color::Blue);
     if (win.getMode() == MAIN_MENU) {
@@ -38,11 +51,8 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car car, RRoad &rroad, Su
         road.draw(win);
         car.draw_to(win);
     }
-    if (success.msElapsed() < 3000) {
-        if (!success.hasPlayed())
-            success.play();
-        success.draw_to(win);
-    }
+    if (win.nbSuccess() > 0)
+        check_success(win);
     win.display();
 }
 
@@ -51,15 +61,14 @@ int main(void)
     Window win(sf::VideoMode(800, 600), "Route du succès", sf::Style::Close | sf::Style::Resize);
     MainMenu menu(sf::Vector2f(800, 600));
     Road road(win);
-    Success s("Launched the game", win.getSize());
     Car car;
     RRoad rroad;
 
     while (win.isOpen()) {
         car.move_right();
         car.move_left();
-        poll_events(win, menu, s);
-        draw_win(win, menu, road, car, rroad, s);
+        poll_events(win, menu);
+        draw_win(win, menu, road, car, rroad);
     }
     return 0;
 }
