@@ -6,6 +6,7 @@
     #include <string>
     #include "Success.hpp"
     #include <list>
+    #include "Enemy.hpp"
 
 typedef enum {MAIN_MENU, PLAY} win_mode;
 
@@ -19,6 +20,8 @@ private:
     std::vector<std::string> m_viewed_sc;
     sf::RectangleShape dark;
 
+    std::vector<Enemy> _enemies;
+
 public:
     int stop;
     void draw_dark();
@@ -31,6 +34,9 @@ public:
     Success *curSuccess(void);
     std::size_t nbSuccess(void) const {return m_sc.size();}
 
+    void addEnemy(enemy_type type, float x_start);
+    void drawEnemies(void);
+    void moveEnemies(Road &r);
     ~Window();
 };
 

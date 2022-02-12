@@ -39,6 +39,30 @@ Success *Window::curSuccess(void)
     return m_sc.front();
 }
 
+void Window::addEnemy(enemy_type type, float x_start)
+{
+    _enemies.push_back(Enemy(type, x_start));
+}
+
+void Window::drawEnemies(void)
+{
+    for (Enemy i: _enemies)
+        draw(i);
+}
+
+void Window::moveEnemies(Road &r)
+{
+    std::vector<std::vector<Enemy>::iterator> to_remove;
+    for (std::vector<Enemy>::iterator it = _enemies.begin();
+    it != _enemies.end(); it++) {
+        (*it).update_pos(r);
+        if ((*it).getPosition().y > getSize().y)
+            to_remove.push_back(it);
+    }
+    for (int i = 0, n = to_remove.size(); i < n; i++)
+        _enemies.erase(to_remove[i]);
+}
+
 Window::~Window()
 {
     while (m_sc.size())

@@ -7,9 +7,6 @@ typedef enum {PLOT, ENTREPRENEUR, BANANA} enemy_type;
 
 class Enemy : public sf::Sprite
 {
-private:
-    double m_x_velo;
-
 public:
     Enemy(enemy_type const type, float const x_start);
 
