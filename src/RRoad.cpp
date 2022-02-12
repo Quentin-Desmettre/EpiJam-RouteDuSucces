@@ -13,14 +13,14 @@ int PARALLAX_SPEED = 2;
 
 RRoad::RRoad()
 {
-    _rect = sf::IntRect(0, 0, 101, 427);   
+    _rect = sf::IntRect(0, 0, 131, 427);
     _texture.loadFromFile(ROAD);
     _texture.setRepeated(true);
     _sprite.setOrigin(50, 213);
     _sprite.setTexture(_texture);
     _sprite.setTextureRect(_rect);
-    _sprite.setScale((sf::Vector2f){4.5, 4.5});
-    _sprite.setPosition((sf::Vector2f){400, 300});
+    _sprite.setScale(2.7, 2.7);
+    _sprite.setPosition(358, 300);
 }
 
 void RRoad::update(Window &win)
