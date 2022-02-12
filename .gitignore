@@ -1,0 +1,4 @@
+.vscode/
+jam
+*.o
+vgcore*
