@@ -29,6 +29,7 @@ class Road {
         // GETTERS && SETTERS
         sf::Sprite getSprite() const {return _sprite;};
         float getSpeed() const {return _speed;}
+        void setSpeed(float n) {_speed = n;}
 
         // METHODS
         void update(Window &win);

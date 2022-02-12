@@ -5,7 +5,7 @@
 #include "Car.hpp"
 #include "Success.hpp"
 
-void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
+void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r)
 {
     if (ev.type == sf::Event::MouseButtonPressed) {
         if (menu.is_exit(ev) && win.stop == 0) {
@@ -16,6 +16,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
         if (menu.is_exit(ev) && win.stop == 1) {
             win.addSuccess("Back to menu");
             win.setMode(MAIN_MENU);
+            r.setSpeed(5);
             win.stop = 0;
         } else if (menu.is_play(ev)) {
             win.addSuccess("Played the game");
@@ -25,7 +26,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev)
     }
 }
 
-void poll_events(Window &win, MainMenu &menu)
+void poll_events(Window &win, MainMenu &menu, Road &r)
 {
     sf::Event ev;
 
@@ -42,7 +43,7 @@ void poll_events(Window &win, MainMenu &menu)
             win.stop = !win.stop;
         }
         if (win.getMode() == MAIN_MENU || win.stop)
-            check_menu_event(win, menu, ev);
+            check_menu_event(win, menu, ev, r);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         win.addSuccess("Drift god");
@@ -116,7 +117,7 @@ int main(void)
     while (win.isOpen()) {
         if (win.stop == 0)
             move_all(win, road, car);
-        poll_events(win, menu);
+        poll_events(win, menu, road);
         draw_win(win, menu, road, car, gorilla);
     }
     return 0;
