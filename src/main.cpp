@@ -26,6 +26,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
             if (win.getMode() == MAIN_MENU) {
                 win.clearEnemies();
                 car.setState(0);
+                car.resetDamage();
                 sc.resetScore();
             }
             win.setMode(PLAY);

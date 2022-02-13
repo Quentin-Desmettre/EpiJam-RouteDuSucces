@@ -85,7 +85,7 @@ void Car::resetDamage()
 {
     sf::IntRect r = m_car.getTextureRect();
 
-    r.left -= r.width * _state;
+    r.left = 0;
     m_car.setTextureRect(r);
     _state = 0;
 }
