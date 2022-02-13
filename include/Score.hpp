@@ -16,6 +16,7 @@ public:
 
     void addScore(int increment) {_score += increment;}
     void resetScore() {_score = 0;}
+    int getScore() {return _score;}
     void drawTo(Window &win);
     sf::Time msElapsed() {return _clock.getElapsedTime();}
     void restartClock() {_clock.restart();}

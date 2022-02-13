@@ -125,6 +125,11 @@ void move_all(Window &win, Road &road, Car &car, Gorilla &g, Score &sc)
         if (sc.msElapsed().asMilliseconds() > 75) {
             sc.restartClock();
             sc.addScore(road.getSpeed());
+            static int last_best = 500;
+            if (sc.getScore() > last_best) {
+                win.addSuccess("Reached " + std::to_string(last_best) + " points");
+                last_best += 500;
+            }
         }
     }
     if (!car.isGameOver() || win.getMode() == MAIN_MENU)
