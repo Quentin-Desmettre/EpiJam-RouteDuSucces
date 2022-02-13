@@ -104,3 +104,9 @@ void Car::takeDamage()
     r.left += r.width;
     m_car.setTextureRect(r);
 }
+
+Car::~Car()
+{
+    delete _crash_sfx.getBuffer();
+    delete _damage_sfx.getBuffer();
+}
