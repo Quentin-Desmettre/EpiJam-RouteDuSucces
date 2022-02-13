@@ -4,10 +4,11 @@
 #include "Gorilla.hpp"
 #include "Car.hpp"
 #include "Success.hpp"
+#include "Score.hpp"
 
 void check_car_collision(Road &road, Car &car, Window &win);
 
-void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &car)
+void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &car, Score &sc)
 {
     if (ev.type == sf::Event::MouseButtonPressed) {
         if (menu.is_exit(ev) && win.stop == 0) {
@@ -25,6 +26,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
             if (win.getMode() == MAIN_MENU) {
                 win.clearEnemies();
                 car.setState(0);
+                sc.resetScore();
             }
             win.setMode(PLAY);
             win.stop = 0;
@@ -32,7 +34,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
     }
 }
 
-void poll_events(Window &win, MainMenu &menu, Road &r, Car &c)
+void poll_events(Window &win, MainMenu &menu, Road &r, Car &c, Score &sc)
 {
     sf::Event ev;
 
@@ -49,7 +51,7 @@ void poll_events(Window &win, MainMenu &menu, Road &r, Car &c)
             win.stop = !win.stop;
         }
         if (win.getMode() == MAIN_MENU || win.stop)
-            check_menu_event(win, menu, ev, r, c);
+            check_menu_event(win, menu, ev, r, c, sc);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         win.addSuccess("Drift god");
@@ -81,7 +83,7 @@ void move(Road &road, Car &car, Window &win)
         win.addSuccess("Touched the left wall");
 }
 
-void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorilla)
+void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorilla, Score &sc)
 {
     win.clear(sf::Color::Black);
     if (win.getMode() == MAIN_MENU) {
@@ -94,14 +96,16 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorill
     if (win.stop) {
         win.draw_dark();
         menu.draw_to(win);
-    } else if (win.getMode() != MAIN_MENU)
+    } else if (win.getMode() != MAIN_MENU) {
         gorilla.draw(win);
+        sc.drawTo(win);
+    }
     if (win.nbSuccess() > 0)
         check_success(win);
     win.display();
 }
 
-void move_all(Window &win, Road &road, Car &car, Gorilla &g)
+void move_all(Window &win, Road &road, Car &car, Gorilla &g, Score &sc)
 {
     if (win.getMode() != MAIN_MENU) {
         check_car_collision(road, car, win);
@@ -109,6 +113,10 @@ void move_all(Window &win, Road &road, Car &car, Gorilla &g)
         g.move(win);
         road.move_back();
         win.moveEnemies(road);
+        if (sc.msElapsed().asMilliseconds() > 75) {
+            sc.restartClock();
+            sc.addScore(road.getSpeed());
+        }
     }
 }
 
@@ -119,14 +127,15 @@ int main(void)
     Road road(win);
     Car car;
     Gorilla gorilla;
+    Score sc(win.getSize().x * 0.03, win.getSize().y * 0.85);
 
     win.addSuccess("Launched the game");
     win.addSuccess("First success");
     while (win.isOpen()) {
         if (win.stop == 0)
-            move_all(win, road, car, gorilla);
-        poll_events(win, menu, road, car);
-        draw_win(win, menu, road, car, gorilla);
+            move_all(win, road, car, gorilla, sc);
+        poll_events(win, menu, road, car, sc);
+        draw_win(win, menu, road, car, gorilla, sc);
     }
     return 0;
 }
