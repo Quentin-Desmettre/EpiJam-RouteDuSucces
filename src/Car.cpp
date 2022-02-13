@@ -81,12 +81,19 @@ void Car::draw_to(Window &win)
     win.draw(m_car);
 }
 
+void Car::stop_sound()
+{
+    _crash_sfx.stop();
+    _damage_sfx.stop();
+}
+
 void Car::resetDamage()
 {
     sf::IntRect r = m_car.getTextureRect();
 
     r.left = 0;
     m_car.setTextureRect(r);
+    m_car.setPosition(400, 500);
     _state = 0;
 }
 

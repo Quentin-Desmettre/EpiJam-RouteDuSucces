@@ -26,7 +26,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
         } else if (menu.is_play(ev)) {
             r.setSpeed(5);
             win.addSuccess("Played the game");
-            if (win.getMode() == MAIN_MENU) {
+            if (win.getMode() == MAIN_MENU || car.isGameOver()) {
                 win.clearEnemies();
                 car.setState(0);
                 car.resetDamage();
@@ -60,6 +60,16 @@ void poll_events(Window &win, MainMenu &menu, Road &r, Car &c, Score &sc)
         }
         if (win.getMode() == MAIN_MENU || win.stop)
             check_menu_event(win, menu, ev, r, c, sc);
+        if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Enter && win.getMode() != MAIN_MENU && c.isGameOver()) {
+            win.clearEnemies();
+            c.setState(0);
+            c.stop_sound();
+            c.resetDamage();
+            sc.resetScore();
+            win.stopMusic();
+            win.playMusic();
+            draw_game_over(win, 1);
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         win.addSuccess("Drift god");
