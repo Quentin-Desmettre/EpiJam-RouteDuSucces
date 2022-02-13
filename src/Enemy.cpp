@@ -1,6 +1,6 @@
 #include "Enemy.hpp"
 #define PLOT_PNG "assets/images/enemies/cone.png"
-#define ENTREPRENEUR_PNG "assets/images/enemies/entrepreneur.png"
+#define ENTREPRENEUR_PNG "assets/images/enemies/entrepreneur1.png"
 #define BANANA_PNG "assets/images/enemies/banana.png"
 
 static const sf::Texture *textures[3] = {
@@ -13,8 +13,6 @@ Enemy::Enemy(int const type, float const x_start):
 _type(type)
 {
     setTexture(*(textures[type]));
-    if (type == 1)
-        setScale(2, 2);
     setPosition(x_start, 0);
 }
 
