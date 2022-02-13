@@ -26,6 +26,7 @@ public:
     void takeDamage();
     bool isGameOver() {return _state >= 3;}
     int getState() const {return _state;}
+    void setState(int state) {_state = state;}
 };
 
 

@@ -7,7 +7,7 @@
 
 void check_car_collision(Road &road, Car &car, Window &win);
 
-void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r)
+void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &car)
 {
     if (ev.type == sf::Event::MouseButtonPressed) {
         if (menu.is_exit(ev) && win.stop == 0) {
@@ -22,15 +22,17 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r)
             win.stop = 0;
         } else if (menu.is_play(ev)) {
             win.addSuccess("Played the game");
-            if (win.getMode() == MAIN_MENU)
+            if (win.getMode() == MAIN_MENU) {
                 win.clearEnemies();
+                car.setState(0);
+            }
             win.setMode(PLAY);
             win.stop = 0;
         }
     }
 }
 
-void poll_events(Window &win, MainMenu &menu, Road &r)
+void poll_events(Window &win, MainMenu &menu, Road &r, Car &c)
 {
     sf::Event ev;
 
@@ -47,7 +49,7 @@ void poll_events(Window &win, MainMenu &menu, Road &r)
             win.stop = !win.stop;
         }
         if (win.getMode() == MAIN_MENU || win.stop)
-            check_menu_event(win, menu, ev, r);
+            check_menu_event(win, menu, ev, r, c);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         win.addSuccess("Drift god");
@@ -123,7 +125,7 @@ int main(void)
     while (win.isOpen()) {
         if (win.stop == 0)
             move_all(win, road, car, gorilla);
-        poll_events(win, menu, road);
+        poll_events(win, menu, road, car);
         draw_win(win, menu, road, car, gorilla);
     }
     return 0;
