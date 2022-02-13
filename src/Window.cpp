@@ -66,8 +66,22 @@ void Window::moveEnemies(Road &r)
         _enemies.erase(to_remove[i]);
 }
 
+void Window::playMusic(void)
+{
+    _music.openFromFile("assets/musics/coconut_mall.ogg");
+    _music.setLoop(true);
+    _music.play();
+}
+
+void Window::stopMusic(void)
+{
+    _music.stop();
+}
+
 Window::~Window()
 {
     while (m_sc.size())
         popSuccess();
+    if (_music.getStatus() != 0)
+        _music.stop();
 }

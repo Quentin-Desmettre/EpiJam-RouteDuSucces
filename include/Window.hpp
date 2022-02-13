@@ -3,6 +3,7 @@
     #define WINDOW_HPP
     #include <SFML/Window.hpp>
     #include <SFML/Graphics.hpp>
+    #include "SFML/Audio.hpp"
     #include <string>
     #include "Success.hpp"
     #include <list>
@@ -25,6 +26,7 @@ private:
     std::vector<Enemy> _enemies;
     bool _ftg;
 
+    sf::Music _music;
 public:
     int stop;
     void draw_dark();
@@ -44,6 +46,9 @@ public:
     std::vector<Enemy> &getEnemies() {return _enemies;}
 
     void ferme_ta_gueule(bool ftg) {_ftg = ftg;}
+
+    void playMusic();
+    void stopMusic();
     ~Window();
 };
 

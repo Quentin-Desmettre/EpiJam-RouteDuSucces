@@ -33,6 +33,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
                 draw_game_over(win, 1);
             }
             win.setMode(PLAY);
+            win.playMusic();
             win.stop = 0;
         }
     }
@@ -53,6 +54,7 @@ void poll_events(Window &win, MainMenu &menu, Road &r, Car &c, Score &sc)
         (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape && win.getMode() != MAIN_MENU)) {
             win.addSuccess("Do you want a little break?");
             win.stop = !win.stop;
+            win.stopMusic();
         }
         if (win.getMode() == MAIN_MENU || win.stop)
             check_menu_event(win, menu, ev, r, c, sc);
