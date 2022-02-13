@@ -4,7 +4,6 @@
 #define GORILLA "assets/images/enemies/gorillas.png"
 #define PLAY "assets/images/main_menu/start.png"
 #define EXIT "assets/images/main_menu/quit.png"
-#define BACK ""
 
 sf::Texture *from_file(std::string file)
 {
@@ -26,7 +25,6 @@ MainMenu::MainMenu(sf::Vector2f win_size):
     m_play.setPosition(win_size.x / 2.0, win_size.y * 0.37);
     sprite_from_file(m_exit, EXIT);
     m_exit.setPosition(win_size.x / 2.0, win_size.y * 0.63);
-    sprite_from_file(m_background, BACK);
 }
 
 void MainMenu::move_gori(Window &win)
@@ -54,7 +52,6 @@ void MainMenu::draw_to(Window &win)
 {
     move_gori(win);
 
-    win.draw(m_background);
     win.draw(m_gorille);
     win.draw(m_play);
     win.draw(m_exit);

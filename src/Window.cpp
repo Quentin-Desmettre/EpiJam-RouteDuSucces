@@ -10,6 +10,12 @@ Window::Window(sf::VideoMode mode, std::string name, sf::Uint8 style):
     dark.setFillColor(sf::Color(0, 0, 0, 100));
     dark.setSize(sf::Vector2f(800, 600));
     setFramerateLimit(60);
+
+    m_buffer = new sf::SoundBuffer;
+    m_sound = new sf::Sound;
+    m_buffer->loadFromFile("assets/sfx/fart.ogg");
+    m_sound->setBuffer(*m_buffer);
+    m_sound->setVolume(50);
 }
 
 void Window::addSuccess(std::string const what)
@@ -42,9 +48,15 @@ Success *Window::curSuccess(void)
     return m_sc.front();
 }
 
+void Window::fart()
+{
+    m_sound->play();
+}
+
 void Window::addEnemy(int type, float x_start)
 {
     _enemies.push_back(Enemy(type, x_start));
+    fart();
 }
 
 void Window::drawEnemies(void)
@@ -84,4 +96,6 @@ Window::~Window()
         popSuccess();
     if (_music.getStatus() != 0)
         _music.stop();
+    delete m_buffer;
+    delete m_sound;
 }

@@ -24,6 +24,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
             r.setSpeed(5);
             win.stop = 0;
         } else if (menu.is_play(ev)) {
+            r.setSpeed(5);
             win.addSuccess("Played the game");
             if (win.getMode() == MAIN_MENU) {
                 win.clearEnemies();
@@ -47,8 +48,9 @@ void poll_events(Window &win, MainMenu &menu, Road &r, Car &c, Score &sc)
         if (ev.type == sf::Event::Closed ||
         ((ev.type == sf::Event::KeyPressed && win.getMode() == MAIN_MENU) && ev.key.code == sf::Keyboard::Escape)) {
             win.addSuccess("Tried to exit");
-            if (win.nbSuccess() == 0)
+            if (win.nbSuccess() == 0) {
                 win.close();
+            }
         }
         if (
         (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Escape && win.getMode() != MAIN_MENU)) {
@@ -92,10 +94,10 @@ void move(Road &road, Car &car, Window &win)
 void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorilla, Score &sc)
 {
     win.clear(sf::Color::Black);
+    road.draw(win);
     if (win.getMode() == MAIN_MENU) {
         menu.draw_to(win);
     } else {
-        road.draw(win);
         car.draw_to(win);
         win.drawEnemies();
         if (car.isGameOver())
@@ -119,13 +121,14 @@ void move_all(Window &win, Road &road, Car &car, Gorilla &g, Score &sc)
         check_car_collision(road, car, win);
         move(road, car, win);
         g.move(win);
-        road.move_back();
         win.moveEnemies(road);
         if (sc.msElapsed().asMilliseconds() > 75) {
             sc.restartClock();
             sc.addScore(road.getSpeed());
         }
     }
+    if (!car.isGameOver() || win.getMode() == MAIN_MENU)
+        road.move_back();
 }
 
 int main(int ac, char **av)

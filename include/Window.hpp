@@ -22,6 +22,8 @@ private:
     std::list<Success*> m_sc;
     std::vector<std::string> m_viewed_sc;
     sf::RectangleShape dark;
+    sf::Sound *m_sound ;
+    sf::SoundBuffer *m_buffer;
 
     std::vector<Enemy> _enemies;
     bool _ftg;
@@ -49,6 +51,9 @@ public:
 
     void playMusic();
     void stopMusic();
+
+    void fart();
+
     ~Window();
 };
 
