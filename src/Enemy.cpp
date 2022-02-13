@@ -18,5 +18,5 @@ _type(type)
 
 void Enemy::update_pos(Road &r)
 {
-    move(0, r.getSpeed());
+    move(0, r.getSpeed() * 1.19);
 }
