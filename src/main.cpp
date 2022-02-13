@@ -87,14 +87,13 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorill
     } else {
         road.draw(win);
         car.draw_to(win);
+        win.drawEnemies();
     }
     if (win.stop) {
         win.draw_dark();
         menu.draw_to(win);
     } else if (win.getMode() != MAIN_MENU)
         gorilla.draw(win);
-    if (win.getMode() != MAIN_MENU)
-        win.drawEnemies();
     if (win.nbSuccess() > 0)
         check_success(win);
     win.display();

@@ -1,7 +1,7 @@
 #include "MainMenu.hpp"
 #include "Window.hpp"
 
-#define GORILLA "assets/images/pnj/gorillas.png"
+#define GORILLA "assets/images/enemies/gorillas.png"
 #define PLAY "assets/images/main_menu/start.png"
 #define EXIT "assets/images/main_menu/quit.png"
 #define BACK ""

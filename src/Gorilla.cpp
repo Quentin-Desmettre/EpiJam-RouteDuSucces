@@ -2,7 +2,7 @@
 #include "Gorilla.hpp"
 #include "MainMenu.hpp"
 
-#define GORILLA "assets/images/pnj/gorillas.png"
+#define GORILLA "assets/images/enemies/gorillas.png"
 
 void Gorilla::_move()
 {
