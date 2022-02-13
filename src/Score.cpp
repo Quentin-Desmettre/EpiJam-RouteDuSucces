@@ -12,6 +12,7 @@ Score::Score(float x, float y):
     setFont(*f);
     setCharacterSize(35);
     setFillColor(sf::Color::White);
+    _score = 0;
     _updateScore();
 }
 
