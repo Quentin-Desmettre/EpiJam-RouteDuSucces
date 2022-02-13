@@ -11,7 +11,9 @@ void init_text(sf::Text &t, std::string const name);
 
 void load_text(sf::Text &t, std::string const name);
 
-static const char *quotes[9] =
+#define NB_QUOTE 10
+
+static const char *quotes[NB_QUOTE] =
 {"Believe, croire en nos reves !",
 "Never (gonna) give (you) up",
 "You did it !",
@@ -20,22 +22,25 @@ static const char *quotes[9] =
 "Yes you can !",
 "The road of success is always under construction.",
 "Whatever you do, always give 100%... Unless you're donating blood...",
-"J'ai couru jusqu'a quand ce que je pouvais."};
+"J'ai couru jusqu'a quand ce que je pouvais.",
+"La pomme ne tombe jamais loin du pommier"};
 
 void draw_game_over(Window &win, int reset)
 {
-    static int num = rand() % 9;
+    static int num = rand() % NB_QUOTE;
     sf::Text over;
     sf::Text mot_quote;
     sf::Vector2u pos = win.getSize();
 
+    win.addSuccess("Ended a game");
     if (reset) {
-        num = rand() % 9;
+        num = rand() % NB_QUOTE;
         return;
     }
     pos.x /= 2;
     pos.y /= 2;
 
+    win.addSuccess(quotes[num]);
     init_text(over, "Game over");
     load_text(over, "Game over");
 
