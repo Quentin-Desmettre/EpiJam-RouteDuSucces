@@ -6,6 +6,8 @@
 #include "Success.hpp"
 #include "Score.hpp"
 
+void draw_game_over(Window &win, int reset);
+
 void check_car_collision(Road &road, Car &car, Window &win);
 
 void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &car, Score &sc)
@@ -28,6 +30,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
                 car.setState(0);
                 car.resetDamage();
                 sc.resetScore();
+                draw_game_over(win, 1);
             }
             win.setMode(PLAY);
             win.stop = 0;
@@ -93,6 +96,8 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorill
         road.draw(win);
         car.draw_to(win);
         win.drawEnemies();
+        if (car.isGameOver())
+            draw_game_over(win, 0);
     }
     if (win.stop) {
         win.draw_dark();
