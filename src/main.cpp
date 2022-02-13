@@ -29,6 +29,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
             if (win.getMode() == MAIN_MENU || car.isGameOver()) {
                 win.clearEnemies();
                 car.setState(0);
+                car.stop_sound();
                 car.resetDamage();
                 sc.resetScore();
                 draw_game_over(win, 1);
