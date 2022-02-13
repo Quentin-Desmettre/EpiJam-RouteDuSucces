@@ -92,9 +92,9 @@ void Car::resetDamage()
 
 void Car::takeDamage()
 {
-    if (_state >= 3)
+    if (_state >= 4)
         return;
-    if (_state == 2)
+    if (_state == 3)
         _crash_sfx.play();
     else
         _damage_sfx.play();
