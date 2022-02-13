@@ -4,7 +4,8 @@
 Window::Window(sf::VideoMode mode, std::string name, sf::Uint8 style):
     sf::RenderWindow(mode, name, style),
     m_mode(MAIN_MENU),
-    stop(0)
+    stop(0),
+    _ftg(false)
 {
     dark.setFillColor(sf::Color(0, 0, 0, 100));
     dark.setSize(sf::Vector2f(800, 600));
@@ -13,6 +14,8 @@ Window::Window(sf::VideoMode mode, std::string name, sf::Uint8 style):
 
 void Window::addSuccess(std::string const what)
 {
+    if (_ftg)
+        return;
     if (std::find(m_viewed_sc.begin(), m_viewed_sc.end(), what) != m_viewed_sc.end())
         return;
     m_sc.push_back(new Success(what, getSize()));

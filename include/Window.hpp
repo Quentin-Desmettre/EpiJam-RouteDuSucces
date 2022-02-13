@@ -23,6 +23,7 @@ private:
     sf::RectangleShape dark;
 
     std::vector<Enemy> _enemies;
+    bool _ftg;
 
 public:
     int stop;
@@ -41,6 +42,8 @@ public:
     void moveEnemies(Road &r);
     void clearEnemies(void) {_enemies.clear();}
     std::vector<Enemy> &getEnemies() {return _enemies;}
+
+    void ferme_ta_gueule(bool ftg) {_ftg = ftg;}
     ~Window();
 };
 
