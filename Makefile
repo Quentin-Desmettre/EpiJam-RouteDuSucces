@@ -9,3 +9,7 @@ all:
 run:
 	$(MAKE) all
 	./jam
+
+tg:
+	$(MAKE) all
+	./jam tg

@@ -16,7 +16,6 @@ class MainMenu
 {
 private:
     sf::Sprite m_gorille, m_play, m_exit;
-    sf::Sprite m_background;
 
     sf::Vector2f m_size;
     sf::Vector2f m_gor_dir;
