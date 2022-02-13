@@ -1,6 +1,6 @@
 #include "Enemy.hpp"
 #define PLOT_PNG "assets/images/enemies/cone.png"
-#define ENTREPRENEUR_PNG "assets/images/enemies/entrepreneur1.png"
+#define ENTREPRENEUR_PNG "assets/images/enemies/entrepreneur.png"
 #define BANANA_PNG "assets/images/enemies/banana.png"
 
 static const sf::Texture *textures[3] = {
