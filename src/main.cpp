@@ -113,7 +113,7 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorill
 
 void move_all(Window &win, Road &road, Car &car, Gorilla &g, Score &sc)
 {
-    if (win.getMode() != MAIN_MENU) {
+    if (win.getMode() != MAIN_MENU && !car.isGameOver()) {
         check_car_collision(road, car, win);
         move(road, car, win);
         g.move(win);
