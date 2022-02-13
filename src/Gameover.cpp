@@ -12,7 +12,7 @@ void init_text(sf::Text &t, std::string const name);
 void load_text(sf::Text &t, std::string const name);
 
 static const char *quotes[9] =
-{"Béliève, croire en nos rêves !",
+{"Believe, croire en nos reves !",
 "Never (gonna) give (you) up",
 "You did it !",
 "Be you, be proud of you, because you can be do what we want to do.",
@@ -20,7 +20,7 @@ static const char *quotes[9] =
 "Yes you can !",
 "The road of success is always under construction.",
 "Whatever you do, always give 100%... Unless you're donating blood...",
-"J'ai couru jusqu'à quand ce que je pouvais."};
+"J'ai couru jusqu'a quand ce que je pouvais."};
 
 void draw_game_over(Window &win, int reset)
 {
