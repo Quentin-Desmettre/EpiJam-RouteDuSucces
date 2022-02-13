@@ -121,7 +121,7 @@ void move_all(Window &win, Road &road, Car &car, Gorilla &g, Score &sc)
     }
 }
 
-int main(void)
+int main(int ac, char **av)
 {
     Window win(sf::VideoMode(800, 600), "Route du succès", sf::Style::Close | sf::Style::Resize);
     MainMenu menu(sf::Vector2f(800, 600));
@@ -130,6 +130,8 @@ int main(void)
     Gorilla gorilla;
     Score sc(win.getSize().x * 0.03, win.getSize().y * 0.85);
 
+    if (ac == 2 && av[1] == std::string("tg"))
+        win.ferme_ta_gueule(true);
     win.addSuccess("Launched the game");
     win.addSuccess("First success");
     while (win.isOpen()) {
