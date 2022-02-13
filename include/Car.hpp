@@ -24,6 +24,7 @@ public:
 
     void resetDamage();
     void takeDamage();
+    void stop_sound();
     bool isGameOver() {return _state >= 3;}
     int getState() const {return _state;}
     void setState(int state) {_state = state;}
