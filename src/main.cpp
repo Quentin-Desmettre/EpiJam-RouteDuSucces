@@ -24,7 +24,6 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
             r.setSpeed(5);
             win.stop = 0;
         } else if (menu.is_play(ev)) {
-            r.setSpeed(5);
             win.addSuccess("Played the game");
             if (win.getMode() == MAIN_MENU || car.isGameOver()) {
                 win.clearEnemies();
