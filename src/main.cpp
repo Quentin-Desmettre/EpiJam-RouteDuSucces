@@ -151,7 +151,7 @@ void move_all(Window &win, Road &road, Car &car, Gorilla &g, Score &sc)
 
 int main(int ac, char **av)
 {
-    Window win(sf::VideoMode(800, 600), "Route du succès", sf::Style::Close | sf::Style::Resize);
+    Window win(sf::VideoMode(800, 600), "Route du succes", sf::Style::Close | sf::Style::Resize);
     MainMenu menu(sf::Vector2f(800, 600));
     Road road(win);
     Car car;
