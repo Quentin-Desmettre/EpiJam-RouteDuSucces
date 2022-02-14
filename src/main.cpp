@@ -29,6 +29,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
             if (win.getMode() == MAIN_MENU || car.isGameOver()) {
                 win.clearEnemies();
                 car.setState(0);
+                r.setSpeed(5);
                 car.stop_sound();
                 car.resetDamage();
                 sc.resetScore();
@@ -64,6 +65,7 @@ void poll_events(Window &win, MainMenu &menu, Road &r, Car &c, Score &sc)
         if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Enter && win.getMode() != MAIN_MENU && c.isGameOver()) {
             win.clearEnemies();
             c.setState(0);
+            r.setSpeed(5);
             c.stop_sound();
             c.resetDamage();
             sc.resetScore();
